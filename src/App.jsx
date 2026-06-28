@@ -610,8 +610,8 @@ export default class App extends React.Component {
 
             {/* how-to-play popover */}
             {s.showHelp && (
-              <div onClick={this.toggleHelp} style={css('position:absolute;inset:0;background:rgba(0,0,0,.78);display:flex;align-items:center;justify-content:center;z-index:8;')}>
-                <div style={css('background:rgba(20,12,6,.97);border:2px solid #5c3d24;border-radius:12px;max-width:480px;padding:28px;box-shadow:0 16px 40px rgba(0,0,0,.6);')}>
+              <div onClick={this.toggleHelp} style={css('position:absolute;inset:0;background:transparent;display:flex;align-items:center;justify-content:center;padding:24px;z-index:8;')}>
+                <div style={css('background:rgba(20,12,6,.97);border:2px solid #5c3d24;border-radius:12px;width:100%;max-width:480px;max-height:100%;overflow-y:auto;padding:28px;box-shadow:0 16px 40px rgba(0,0,0,.6);')}>
                   <h3 style={{ ...css('font-size:14px;color:#f0a030;margin-bottom:16px;'), fontFamily: PF }}>{t.helpTitle}</h3>
                   <p style={css('font-size:15px;line-height:1.9;color:#fbf2dd;')}>{t.helpA} <span style={css('color:#7bc87a;')}>{t.helpType}</span> {t.helpB} <span style={css('color:#f0a030;')}>{dur} {t.seconds}</span> {t.helpC}</p>
                   <p style={css('font-size:12px;color:#b8956a;margin-top:16px;')}>{t.helpEsc}</p>
@@ -743,7 +743,8 @@ export default class App extends React.Component {
 
         {/* ═══════════ SCREEN 4 · LEADERBOARD ═══════════ */}
         {isBoard && (
-          <div className="wg-scrn" data-screen-label="Leaderboard" style={css('position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;background:rgba(14,9,4,.88);')}>
+          <div className="wg-scrn" data-screen-label="Leaderboard" style={css('position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;padding:28px;')}>
+            <div style={css('width:100%;max-width:640px;max-height:100%;display:flex;flex-direction:column;background:rgba(14,9,4,.92);border:2px solid #5c3d24;border-radius:14px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.5);')}>
             <div style={css('display:flex;align-items:center;justify-content:space-between;background:rgba(26,15,8,.82);border-bottom:2px solid #5c3d24;padding:16px 22px;')}>
               <button className="wg-ghost" onClick={this.goBack} style={{ ...css('cursor:pointer;background:rgba(22,13,6,.82);border:2px solid #8b6b4a;color:#f5e6c8;font-size:10px;padding:9px 13px;'), fontFamily: PF }}>{LARR} {t.back}</button>
               <h2 style={{ ...css('font-size:14px;color:#f0a030;'), fontFamily: PF }}>{t.leaderboard}</h2>
@@ -756,7 +757,7 @@ export default class App extends React.Component {
               <button className="wg-tab" onClick={this.tabMine} style={{ ...css('cursor:pointer;background:none;border:none;font-size:11px;padding:8px 14px;'), fontFamily: PF, borderBottom: `3px solid ${border(s.lbTab === 'mine')}`, color: active2(s.lbTab === 'mine') }}>{t.myScores}</button>
             </div>
 
-            <div style={css('flex:1;overflow:auto;padding:8px 22px 22px;')}>
+            <div style={css('flex:1;min-height:0;overflow:auto;padding:8px 22px 22px;')}>
               <div style={{ ...css('display:grid;grid-template-columns:48px 1fr 90px 80px;background:#5a3820;border-bottom:2px solid #5c3d24;font-size:9px;color:#b8956a;padding:12px 14px;'), fontFamily: PF }}>
                 <span>#</span><span>{t.player}</span><span style={css('text-align:right;')}>{t.score}</span><span style={css('text-align:right;')}>{t.damage}</span>
               </div>
@@ -779,12 +780,13 @@ export default class App extends React.Component {
                 <div style={css('margin-top:16px;text-align:center;background:#4a2e18;border-left:4px solid #f0a030;padding:14px;font-size:13px;color:#f5e6c8;')}>{t.loginFirst}</div>
               )}
             </div>
+            </div>
           </div>
         )}
 
         {/* ═══════════ AUTH OVERLAY ═══════════ */}
         {s.showAuth && (
-          <div onClick={this.closeAuthBg} style={css('position:absolute;inset:0;z-index:100;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center;')}>
+          <div onClick={this.closeAuthBg} style={css('position:absolute;inset:0;z-index:100;background:transparent;display:flex;align-items:center;justify-content:center;')}>
             <div onClick={this.stop} style={css('position:relative;background:#4a2e18;border:2px solid #5c3d24;border-radius:16px;width:420px;padding:34px;')}>
               <div style={css('display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;')}>
                 <div style={css("font-family:'Press Start 2P',monospace;font-size:13px;color:#f0a030;")}><span style={css('color:#e05020;')}>{BOW}</span> WORD ARCHER</div>
