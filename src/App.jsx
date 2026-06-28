@@ -166,6 +166,9 @@ export default class App extends React.Component {
 
   focusInput = () => { if (this.inputEl) this.inputEl.focus() }
 
+  // Süreyi beklemeden turu sıfırdan başlat (oyun ekranındaki yuvarlak buton)
+  restartGame = (e) => { if (e) e.stopPropagation(); this.onPlay() }
+
   clearNative = (e) => { e.target.value = '' }  // görünmez input boş kalsın
 
   // ── 10fastfingers tarzı yazım ──
@@ -448,6 +451,10 @@ export default class App extends React.Component {
   authRegister = () => this.setState({ authTab: 'register', authError: '' })
   onAuthKey = (e) => { if (e.key === 'Enter') this.submitAuth() }
   playGuest = () => this.setState({ showAuth: false, authError: '' })
+  googleAuth = () => {
+    // ── Supabase: supabase.auth.signInWithOAuth({ provider: 'google' }) ──
+    // Şimdilik frontend yer tutucu — backend bağlanınca buradan yönlendirilecek.
+  }
   logout = () => { localStorage.removeItem('wg_user'); this.setState({ user: null, lbTab: 'all' }) }
   togglePass = () => {
     const i = this.passInput; if (i) i.type = i.type === 'text' ? 'password' : 'text'
@@ -635,15 +642,23 @@ export default class App extends React.Component {
                     <div style={{ ...css('height:100%;transition:width 1s linear,background .4s;'), width: `${pct.toFixed(2)}%`, background: barColor }}></div>
                   </div>
                   {/* stat satırı */}
-                  <div style={css('display:flex;align-items:center;justify-content:space-between;padding:9px 18px;border-bottom:1px solid rgba(92,61,36,.55);')}>
-                    <div style={css('display:flex;align-items:baseline;gap:7px;')}>
+                  <div style={css('display:flex;align-items:center;padding:9px 18px;border-bottom:1px solid rgba(92,61,36,.55);')}>
+                    <div style={css('flex:1;display:flex;align-items:baseline;gap:7px;')}>
                       <span style={{ ...css('font-size:9px;letter-spacing:.5px;color:#b8956a;'), fontFamily: PF }}>{t.damage}</span>
                       <span style={{ ...css('font-size:19px;color:#f0a030;'), fontFamily: PF, animation: scoreAnim }}>{s.totalDamage}</span>
                     </div>
-                    <div style={{ ...css('font-size:18px;'), fontFamily: PF, animation: timerAnim, color: timerTextColor }}>{s.timeLeft}s</div>
-                    <div style={css('display:flex;align-items:baseline;gap:7px;')}>
-                      <span style={{ ...css('font-size:19px;color:#ff6b5a;'), fontFamily: PF }}>{s.misses}</span>
-                      <span style={{ ...css('font-size:9px;letter-spacing:.5px;color:#b8956a;'), fontFamily: PF }}>{t.wrong}</span>
+                    <div style={{ ...css('flex:1;text-align:center;font-size:18px;'), fontFamily: PF, animation: timerAnim, color: timerTextColor }}>{s.timeLeft}s</div>
+                    <div style={css('flex:1;display:flex;align-items:center;justify-content:flex-end;gap:13px;')}>
+                      <div style={css('display:flex;align-items:baseline;gap:7px;')}>
+                        <span style={{ ...css('font-size:19px;color:#ff6b5a;'), fontFamily: PF }}>{s.misses}</span>
+                        <span style={{ ...css('font-size:9px;letter-spacing:.5px;color:#b8956a;'), fontFamily: PF }}>{t.wrong}</span>
+                      </div>
+                      <button className="wg-refresh" onClick={this.restartGame} title={t.restart} aria-label={t.restart} style={{ ...css('position:relative;z-index:30;display:flex;align-items:center;justify-content:center;cursor:pointer;background:none;border:none;padding:2px;color:#8b6b4a;') }}>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M23 4v6h-6" />
+                          <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+                        </svg>
+                      </button>
                     </div>
                   </div>
                   {/* kelimeler — üzerinde yazarak ilerlersin */}
@@ -824,6 +839,15 @@ export default class App extends React.Component {
                 <span style={css('font-size:11px;color:#b8956a;')}>{t.or}</span>
                 <div style={css('flex:1;height:1px;background:#5c3d24;')}></div>
               </div>
+              <button className="wg-google" onClick={this.googleAuth} style={{ ...css('cursor:pointer;width:100%;display:flex;align-items:center;justify-content:center;gap:10px;background:#fff;border:none;border-radius:4px;color:#3c4043;font-size:13px;font-weight:600;padding:13px;margin-bottom:10px;'), fontFamily: PF }}>
+                <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
+                  <path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.92c1.7-1.57 2.68-3.88 2.68-6.62z" />
+                  <path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26c-.81.54-1.84.86-3.04.86-2.34 0-4.32-1.58-5.03-3.7H.96v2.33A9 9 0 0 0 9 18z" />
+                  <path fill="#FBBC05" d="M3.97 10.72a5.4 5.4 0 0 1 0-3.44V4.95H.96a9 9 0 0 0 0 8.1l3.01-2.33z" />
+                  <path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58C13.46.89 11.42 0 9 0A9 9 0 0 0 .96 4.95l3.01 2.33C4.68 5.16 6.66 3.58 9 3.58z" />
+                </svg>
+                {t.googleSignIn}
+              </button>
               <button className="wg-ghost" onClick={this.playGuest} style={{ ...css('cursor:pointer;width:100%;background:transparent;border:2px solid #8b6b4a;color:#b8956a;font-size:11px;padding:14px;'), fontFamily: PF }}>{t.continueGuest}</button>
             </div>
           </div>

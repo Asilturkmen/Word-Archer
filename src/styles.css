@@ -21,6 +21,12 @@ input.wg-auth:focus { border-color: #f0a030 !important; border-width: 2px !impor
 .wg-goldbtn:hover { transform: translateY(-2px); box-shadow: 2px 6px 0 #8b5a00; }
 .wg-ghost:hover { background: #4a2e18 !important; color: #f5e6c8 !important; }
 .wg-tab:hover { color: #f5e6c8 !important; }
+.wg-google:hover { background: #f1f3f4 !important; box-shadow: 0 1px 4px rgba(0,0,0,.3); }
+.wg-refresh { transition: color .15s; }
+.wg-refresh:hover { color: #f0a030 !important; }
+.wg-refresh svg { transition: transform .3s ease; }
+.wg-refresh:hover svg { transform: rotate(-180deg); }
+.wg-refresh:active svg { transform: rotate(-180deg) scale(.9); }
 
 /* ── karakterler: gerçek çok-kareli sprite (Sprite sürücüsü background-image/size'ı kendi ayarlar) ── */
 .wg-sprite { image-rendering: pixelated; }
