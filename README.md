@@ -144,27 +144,10 @@ Başka bir sekmeye geçersen oyun **kendiliğinden duraklar**, geri döndüğün
 
 ---
 
-## 💡 Küçük ama önemli detaylar
-
-- 🔊 **Sesler:** Ok fırlatma, isabet ve kombo sesleri var. Ayarlardan kısabilir ya da kapatabilirsin.
-- 🧘 **Hareketleri azalt:** Ekran sarsıntısı ve efektler seni rahatsız ediyorsa tek tıkla kapatabilirsin.
-- 💾 **Rekorların kaybolmaz:** İlerlemen kendi tarayıcında saklanır, hesap açman gerekmez.
-- 📱 **Telefonda da açılır:** Ama en iyi deneyim için fiziksel klavye öneririz.
-
----
-
-## 🎨 Emeği geçenler
-
-Oyundaki piksel karakterler şu sanatçıların eseri:
-
-- **Okçu:** CraftPix.net
-- **Goblin:** [LuizMelo](https://luizmelo.itch.io/monsters-creatures-fantasy)
-- **İskeletler:** [MonoPixelArt](https://monopixelart.itch.io/skeletons-pack)
-
----
-
 <div align="center">
 
 **Geliştirici misin?** Kurulum, yayına alma ve kod yapısı için 👉 [Geliştirici Rehberi](docs/GELISTIRICI.md)
+
+Yapımcı: [asilturkmen.com](https://asilturkmen.com)
 
 </div>
