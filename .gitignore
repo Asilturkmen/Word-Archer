@@ -1,0 +1,20 @@
+# dependencies & build output
+node_modules/
+dist/
+coverage/
+
+# env (Supabase keys etc.)
+.env
+.env.local
+.env.*.local
+
+# editor / OS
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+.claude/settings.local.json
+
+# ham asset paketleri (lisansları yeniden dağıtıma izin vermiyor; yalnızca public/sprites altındaki kullanılanlar yayınlanır)
+wordassets/
