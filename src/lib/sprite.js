@@ -1,19 +1,18 @@
 // Asset-agnostik sprite sürücüsü: yatay bir şeridi (her animasyon ayrı PNG, kareler
-// yan yana) requestAnimationFrame ile oynatır. Çapuk görüntünün çaresi: gerçek
-// çok-kareli animasyon + (isteğe bağlı) kare-başına değişken süre.
+// yan yana) requestAnimationFrame ile oynatır.
 //
 // def biçimi (state -> tanım):
 //   { url, frames, fps }                       // sabit hız
 //   { url, frames, durations:[ms,...] }         // kare-başına değişken süre
 //   loop:true (idle gibi) | once (atış/vuruş; bitince onDone çağrılır, son kareyi tutar)
 export class Sprite {
-  constructor(el, { frameW, frameH, scale = 1, smooth = true } = {}) {
+  constructor(el, { frameW, frameH, scale = 1, smooth = false } = {}) {
     this.el = el
     this.fw = frameW
     this.fh = frameH
     this.scale = scale
-    el.style.width = (frameW * scale) + 'px'
-    el.style.height = (frameH * scale) + 'px'
+    el.style.width = frameW * scale + 'px'
+    el.style.height = frameH * scale + 'px'
     el.style.backgroundRepeat = 'no-repeat'
     el.style.backgroundPositionY = '0px'
     el.style.imageRendering = smooth ? 'auto' : 'pixelated'
@@ -28,6 +27,7 @@ export class Sprite {
   }
 
   add(name, def) { this.defs[name] = { loop: false, ...def }; return this }
+  has(name) { return !!this.defs[name] }
 
   _applyBg(def) {
     this.el.style.backgroundImage = `url('${def.url}')`
@@ -35,7 +35,7 @@ export class Sprite {
   }
   _draw() { this.el.style.backgroundPositionX = `${-this.frame * this.fw * this.scale}px` }
   _holdMs() {
-    if (this.def.durations) return this.def.durations[this.frame] ?? (1000 / (this.def.fps || 12))
+    if (this.def.durations) return this.def.durations[this.frame] ?? 1000 / (this.def.fps || 12)
     return 1000 / (this.def.fps || 12)
   }
 
@@ -63,7 +63,7 @@ export class Sprite {
   }
 
   _tick = (now) => {
-    const dt = now - this.last
+    const dt = Math.min(now - this.last, 250)
     this.last = now
     this.acc += dt
     let guard = 0
@@ -77,7 +77,8 @@ export class Sprite {
           this.frame = this.def.frames - 1
           this._draw()
           this.raf = null
-          const cb = this.onDone; this.onDone = null
+          const cb = this.onDone
+          this.onDone = null
           if (cb) cb()
           return
         }
@@ -87,5 +88,5 @@ export class Sprite {
     this.raf = requestAnimationFrame(this._tick)
   }
 
-  stop() { if (this.raf) { cancelAnimationFrame(this.raf); this.raf = null } }
+  stop() { if (this.raf) { cancelAnimationFrame(this.raf); this.raf = null } this.onDone = null }
 }
