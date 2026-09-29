@@ -1,103 +1,170 @@
+<div align="center">
+
 # 🏹 Word Archer
 
-Piksel sanatlı, tarayıcıda çalışan bir **yazma (typing) oyunu**. Kelimeleri yaz, ok fırlat, kombo yap; goblin ve iskelet dalgalarını yen.
-Türkçe ve İngilizce kelime havuzu, dört oyun modu, istatistikler, başarımlar ve (opsiyonel) global sıralama.
+**Klavyen yayın, kelimelerin okun olsun.**
 
-![Word Archer](public/og-image.jpg)
+Kelimeleri doğru ve hızlı yaz, okçun her kelimede bir ok fırlatsın.
+Goblinleri ve iskeletleri alt et, kombo yap, rekorunu kır.
 
-## Özellikler
+<img src="docs/images/oynanis.gif" alt="Word Archer oynanış" width="720" />
 
-- **4 mod**
-  - **Klasik:** 15, 30, 60 ya da 120 saniyede olabildiğince çok puan topla.
-  - **Hayatta Kal:** 3 canla oynarsın. Düşmanlar sana doğru yürür, biri ulaşırsa bir can gider.
-  - **Günlük Meydan Okuma:** Herkes aynı gün aynı kelimeleri yazar (tohumlu rastgelelik).
-  - **Pratik:** Süre ve baskı yok, sıralamaya sayılmaz.
-- **Kombo sistemi:** 5 doğru kelimede x2, 15'te x3, 30'da x4 çarpan. Yüksek komboda hasar ve puan artar, x3'ten sonra alevli ok atılır.
-- **Düşman dalgaları:** Her düşmanın can barı var. Her 5. düşman güçlü bir "kaptan"dır. Ölüm, vuruş ve saldırı animasyonları var.
-- **Yazma deneyimi**
-  - Süre ilk harfle başlar.
-  - Kelimeler satır satır kayar.
-  - Hatalı harfler hem renkle hem alt çizgiyle gösterilir (renk körlüğüne uygun).
-  - Kısayollar: Boşluk kelimeyi gönderir, Ctrl+Backspace kelimeyi siler, Esc duraklatır, Tab+Enter hızlıca yeniden başlatır.
-  - Sekme değişince ya da odak kaybolunca oyun otomatik duraklar.
-- **Sonuç ekranı:** WPM, ham WPM, doğruluk, en iyi kombo, saniye bazlı hız grafiği, kaçırılan kelimeler, rekor karşılaştırması ve paylaş butonu.
-- **İlerleme:** Kişisel rekorlar, istatistik ekranı (son 30 oyunun WPM trendi) ve 13 başarım.
-- **Ses:** Tüm efektler WebAudio ile anında üretilir, ses dosyası gerekmez. Ses seviyesi ayarlanabilir, sessize alınabilir.
-- **Erişilebilirlik:** "Hareketleri azalt" desteği (işletim sistemi ayarını izler), klavyeyle tam kullanım, modallarda odak yönetimi.
-- **Türkçe doğru:** `I/ı` ve `İ/i` karşılaştırmaları Türkçe kurallarıyla yapılır.
-- **Hafif:** Tek bağımlılık React. Toplam yaklaşık 80 KB gzip JS; arka plan 180 KB WebP.
+<!-- Oyun yayına alındığında bu satırı aç ve adresi yaz:
+### [▶ Hemen oyna](https://ornek-adres.com)
+-->
 
-## Hızlı başlangıç
+*Tarayıcıda çalışır · Kurulum gerekmez · Türkçe ve İngilizce*
 
-```bash
-npm install
-npm run dev       # http://localhost:3000
-npm test          # birim testleri (Vitest)
-npm run build     # yayına hazır dosyalar -> dist/
-npm run preview   # derlenmiş sürümü yerelde dene
-```
+</div>
 
-Node 18 veya üstü gerekir.
+---
 
-## Yayına alma
+## 🎯 Word Archer nedir?
 
-`npm run build` sonrasında `dist/` klasörü tamamen statiktir; herhangi bir statik barındırıcıda çalışır. `base: './'` kullanıldığı için alt dizinde de sorunsuz açılır.
+Word Archer, **klavye hızını eğlenceli bir şekilde geliştirmen** için tasarlanmış, piksel sanatlı küçük bir arena oyunu.
 
-| Seçenek | Adımlar |
+Ekranın üstünde kelimeler belirir. Sen yazdıkça aşağıdaki okçu karakterin karşısındaki düşmana ok atar.
+Ne kadar hızlı ve hatasız yazarsan okların o kadar güçlü olur, düşmanlar o kadar çabuk düşer.
+
+Sıkıcı yazma alıştırmaları yerine, her kelimenin bir hamle olduğu bir oyun.
+
+---
+
+## 🕹️ Nasıl oynanır?
+
+<img src="docs/images/hazir.jpg" alt="Oyuna başlarken" width="100%" />
+
+1. **Yazmaya başla.** Süre ilk harfe bastığında başlar; acele etmene gerek yok.
+2. **Kelimeyi bitirince Boşluk'a bas.** Doğru yazdıysan okçun ateş eder, yanlışsa ok boşa gider.
+3. **Düşmanın can barını bitir.** Düşman yere serilince yerine daha güçlüsü gelir.
+
+Yazarken harfler anında renklenir: **yeşil** doğru, **kırmızı** hatalı demek.
+Hatalı harflerin altı ayrıca çizilir, böylece renkleri ayırt etmekte zorlanan oyuncular da hatayı rahatça görür.
+
+---
+
+## 🔥 Kombo: seri yaz, güçlen
+
+<img src="docs/images/kombo.jpg" alt="Kombo x3 ve alevli ok" width="100%" />
+
+Art arda doğru yazdığın her kelime komboyu büyütür:
+
+| Art arda doğru kelime | Kombo | Ne olur? |
+|:---:|:---:|---|
+| 5 | **x2** | Oklar iki kat hasar verir, puanın ikiye katlanır |
+| 15 | **x3** | 🔥 **Alevli oklar** devreye girer |
+| 30 | **x4** | En yüksek güç: arena senin |
+
+Tek bir hata komboyu sıfırlar, yani hız kadar **dikkat** de önemli.
+
+---
+
+## ⚔️ Oyun modları
+
+<img src="docs/images/menu.jpg" alt="Ana menü ve mod seçimi" width="100%" />
+
+<table>
+<tr>
+<td width="25%" align="center">⏱️<br/><b>Klasik</b></td>
+<td width="25%" align="center">❤️<br/><b>Hayatta Kal</b></td>
+<td width="25%" align="center">📅<br/><b>Günlük</b></td>
+<td width="25%" align="center">♾️<br/><b>Pratik</b></td>
+</tr>
+<tr>
+<td valign="top">15, 30, 60 ya da 120 saniye. Süre bitmeden olabildiğince çok puan topla.</td>
+<td valign="top">3 canın var ve düşmanlar sana doğru yürüyor. Biri sana ulaşırsa bir can gider. Ne kadar dayanabilirsin?</td>
+<td valign="top">Her gün yeni bir meydan okuma. O gün <b>herkese aynı kelimeler</b> gelir; arkadaşlarınla kıyasla!</td>
+<td valign="top">Süre yok, baskı yok. Sadece rahatça pratik yap.</td>
+</tr>
+</table>
+
+Klasik ve Hayatta Kal modlarında **Kolay**, **Normal** ve **Zor** olmak üzere üç zorluk seviyesi var.
+
+<img src="docs/images/hayatta-kal.jpg" alt="Hayatta Kal modu: iskelet kaptan yaklaşıyor" width="100%" />
+
+<sub>Hayatta Kal modunda düşmanlar giderek hızlanır. Her 5. düşman altın renkli bir <b>İskelet Kaptan</b>dır ve daha dayanıklıdır.</sub>
+
+---
+
+## 🏆 Her turdan sonra
+
+<img src="docs/images/sonuc.jpg" alt="Sonuç ekranı" width="100%" />
+
+Tur bitince ne kadar iyi oynadığını bir bakışta görürsün:
+
+- **Skorun** ve önceki rekorunla karşılaştırması
+- **WPM** (dakikada kelime), yani yazma hızın
+- **Doğruluk** yüzden
+- Tur boyunca hızının nasıl değiştiğini gösteren **grafik**
+- **Kaçırdığın kelimeler**; neyi yanlış yazdığını görüp bir dahakine dikkat edersin
+
+Güzel bir skor mu yaptın? **Paylaş** butonuyla sonucunu arkadaşlarına gönder.
+
+---
+
+## 📈 Gelişimini takip et
+
+<table>
+<tr>
+<td width="50%"><img src="docs/images/istatistik.jpg" alt="İstatistikler ve başarımlar" /></td>
+<td width="50%"><img src="docs/images/siralama.jpg" alt="Rekor tablosu" /></td>
+</tr>
+<tr>
+<td valign="top"><b>İstatistikler:</b> Kaç oyun oynadığın, en iyi hızın ve son oyunlardaki gelişimin tek ekranda.</td>
+<td valign="top"><b>Rekorlar:</b> Her mod, süre ve zorluk için ayrı rekor tablosu.</td>
+</tr>
+</table>
+
+Açılmayı bekleyen **13 başarım** var: *İlk Kan*, *Durdurulamaz*, *Usta Okçu*, *Tam İsabet*… Hepsini toplayabilecek misin?
+
+---
+
+## 🌍 Türkçe ve İngilizce
+
+<img src="docs/images/ingilizce.jpg" alt="İngilizce kelimelerle oynanış" width="100%" />
+
+Oyun iki dilde oynanır; dil değişince kelimeler de değişir.
+Her dilde **700'den fazla** kelime var. Kolaydan zora doğru ilerlerler, böylece tur ilerledikçe oyun da zorlaşır.
+
+Türkçe'de `ı, ğ, ş, ç, ö, ü` harflerinin hepsi doğru tanınır.
+
+---
+
+## ⌨️ İşine yarayacak kısayollar
+
+| Tuş | Ne yapar? |
 |---|---|
-| **Netlify** | En hızlısı: `npm run build` → [app.netlify.com/drop](https://app.netlify.com/drop) sayfasına `dist/` klasörünü sürükle. Repo bağlarsan `netlify.toml` hazır. |
-| **Vercel** | Repo'yu içe aktar. `vercel.json` hazır, ek ayar gerekmez. |
-| **GitHub Pages** | Repo → Settings → Pages → Source: **GitHub Actions**. Sonra `main`'e her push'ta `.github/workflows/deploy-pages.yml` siteyi yayınlar. |
+| <kbd>Boşluk</kbd> | Kelimeyi gönderir |
+| <kbd>Esc</kbd> | Oyunu duraklatır / devam ettirir |
+| <kbd>Tab</kbd> + <kbd>Enter</kbd> | Turu hemen baştan başlatır |
+| <kbd>Enter</kbd> | Menüde ve sonuç ekranında yeni tur başlatır |
+| <kbd>Ctrl</kbd> + <kbd>⌫</kbd> | Yazdığın kelimeyi tamamen siler |
 
-> **Open Graph görseli:** Sosyal medya önizlemesi için `index.html` içindeki `og:image` değerini tam adresle değiştir (ör. `https://alanadin.com/og-image.jpg`). Çoğu platform göreli yolu kabul etmez.
+Başka bir sekmeye geçersen oyun **kendiliğinden duraklar**, geri döndüğünde kaldığın yerden devam edersin.
 
-## Opsiyonel: Global sıralama (Supabase)
+---
 
-Env değişkenleri tanımlı değilse oyun **tamamen yerel** çalışır: rekorlar tarayıcıda saklanır, "Global" sekmesi görünmez.
+## 💡 Küçük ama önemli detaylar
 
-1. [supabase.com](https://supabase.com) üzerinde ücretsiz bir proje aç.
-2. **SQL Editor**'de `supabase/schema.sql` dosyasını çalıştır. Tablo, kısıtlar, RLS ve `top_scores` fonksiyonu oluşur.
-3. **Project Settings → API** sayfasından URL'yi ve `anon` anahtarını al.
-   - Yerelde: `.env.example` dosyasını `.env` olarak kopyala ve doldur.
-   - Netlify/Vercel'de: aynı iki değişkeni ortam değişkeni olarak ekle.
-   - GitHub Pages'te: Settings → Secrets and variables → Actions → **Variables** altına ekle.
+- 🔊 **Sesler:** Ok fırlatma, isabet ve kombo sesleri var. Ayarlardan kısabilir ya da kapatabilirsin.
+- 🧘 **Hareketleri azalt:** Ekran sarsıntısı ve efektler seni rahatsız ediyorsa tek tıkla kapatabilirsin.
+- 💾 **Rekorların kaybolmaz:** İlerlemen kendi tarayıcında saklanır, hesap açman gerekmez.
+- 📱 **Telefonda da açılır:** Ama en iyi deneyim için fiziksel klavye öneririz.
 
-```
-VITE_SUPABASE_URL=https://xxxx.supabase.co
-VITE_SUPABASE_ANON_KEY=eyJ...
-```
+---
 
-> ⚠️ **Bilinen sınırlama:** Global sıralamada hesap sistemi yok; takma ad ile gönderilir. Sunucu makul olmayan değerleri (WPM > 250 vb.) reddeder ve her oyuncunun yalnızca en iyi skorunu gösterir. Ancak isteyen biri API'ye elle sahte skor gönderebilir. Hobi projesi için yeterli; ciddi rekabet istenirse Supabase Auth ve sunucu tarafı doğrulama eklenmeli.
+## 🎨 Emeği geçenler
 
-## Proje yapısı
+Oyundaki piksel karakterler şu sanatçıların eseri:
 
-```
-src/
-  lib/
-    engine.js        oyun motoru (saf JS; modlar, kombo, düşmanlar, zamanlayıcı, istatistik)
-    words.js         tohumlanabilir kelime üretimi + zorluk rampası
-    storage.js       localStorage (profil, ayarlar, geçmiş, rekorlar)
-    achievements.js  başarım tanımları
-    audio.js         WebAudio ses efektleri
-    online.js        opsiyonel Supabase REST istemcisi
-    sprite.js        sprite-sheet oynatıcı
-    assets.js        asset yolları ve sprite tanımları
-  screens/           Menü, Oyun, Sonuç, Sıralama, İstatistik, Ayarlar/Yardım
-  components/        Sahne ölçekleme, ikonlar, modal/buton/toast, SVG grafik
-  data/              words-en.js, words-tr.js (~700+ kelime/dil)
-  i18n.js            TR / EN metinler
-tests/               Vitest birim testleri
-supabase/schema.sql  opsiyonel global sıralama şeması
-```
+- **Okçu:** CraftPix.net
+- **Goblin:** [LuizMelo](https://luizmelo.itch.io/monsters-creatures-fantasy)
+- **İskeletler:** [MonoPixelArt](https://monopixelart.itch.io/skeletons-pack)
 
-## Görseller ve lisanslar
+---
 
-| Varlık | Kaynak | Lisans notu |
-|---|---|---|
-| Okçu | CraftPix.net | Oyunda kullanım serbest; ham dosyaların yeniden dağıtımı yasak. |
-| Goblin | [LuizMelo — Monsters Creatures Fantasy](https://luizmelo.itch.io/monsters-creatures-fantasy) | CC0 |
-| İskeletler | [MonoPixelArt — Skeletons Pack](https://monopixelart.itch.io/skeletons-pack) | Oyunda kullanım serbest; yeniden dağıtım ve satış yasak. |
+<div align="center">
 
-Oyunda yalnızca kullanılan kareler `public/sprites/` altında bulunur. Ham asset paketleri (`wordassets/`) lisansları nedeniyle repoya dahil edilmez (`.gitignore`).
+**Geliştirici misin?** Kurulum, yayına alma ve kod yapısı için 👉 [Geliştirici Rehberi](docs/GELISTIRICI.md)
 
-Yazı tipleri: Press Start 2P, Pixelify Sans, Rubik (Google Fonts, OFL).
+</div>
