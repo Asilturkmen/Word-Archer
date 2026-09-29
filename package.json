@@ -1,12 +1,14 @@
 {
-  "name": "word-gladiator",
+  "name": "word-archer",
   "private": true,
-  "version": "1.0.0",
+  "version": "2.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -14,6 +16,11 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",
-    "vite": "^6.0.0"
+    "vite": "^6.0.0",
+    "vitest": "^3.2.7"
+  },
+  "description": "Pixel-art typing game: type words, shoot arrows, defeat waves of enemies.",
+  "engines": {
+    "node": ">=18"
   }
 }
